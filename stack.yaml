@@ -1,0 +1,6 @@
+packages:
+  - experiments
+  - haiku
+  - komatsu
+  - luhn
+resolver: lts-14.21

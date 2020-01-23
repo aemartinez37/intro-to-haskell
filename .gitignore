@@ -1,6 +1,6 @@
-docs/Gemfile.lock
-docs/_site/
+Gemfile.lock
+_site/
 
-experiments/.stack-work/
-experiments/experiments.cabal
-experiments/stack.yaml.lock
+.stack-work/
+*.cabal
+stack.yaml.lock

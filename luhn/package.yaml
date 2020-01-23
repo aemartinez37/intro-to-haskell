@@ -1,0 +1,12 @@
+name:
+  luhn
+
+dependencies:
+  - base
+
+ghc-options:
+  - -Wall
+
+library:
+  source-dirs:
+    src
