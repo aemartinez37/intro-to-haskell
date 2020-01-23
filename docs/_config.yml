@@ -3,3 +3,8 @@ title: Introduction to Haskell
 collections:
   modules:
     output: false
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
