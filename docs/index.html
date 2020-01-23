@@ -1,0 +1,12 @@
+---
+layout: default
+---
+
+<h1>Introduction to Haskell</h1>
+
+{% for module in site.modules %}
+<article>
+  <h2>{{ module.title }}</h2>
+  {{ module.content }}
+</article>
+{% endfor %}
