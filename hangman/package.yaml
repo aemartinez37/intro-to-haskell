@@ -1,0 +1,10 @@
+name: hangman
+
+dependencies:
+  - base
+
+ghc-options:
+  - -Wall
+
+library:
+  source-dirs: src

@@ -1,6 +1,7 @@
 packages:
   - experiments
   - haiku
+  - hangman
   - komatsu
   - luhn
 resolver: lts-14.21
