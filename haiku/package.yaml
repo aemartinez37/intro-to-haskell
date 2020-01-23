@@ -1,5 +1,4 @@
-name:
-  haiku
+name: haiku
 
 dependencies:
   - base
@@ -8,5 +7,4 @@ ghc-options:
   - -Wall
 
 library:
-  source-dirs:
-    src
+  source-dirs: src
