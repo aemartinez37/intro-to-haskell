@@ -1,5 +1,5 @@
-Gemfile.lock
-_site/
+docs/Gemfile.lock
+docs/_site/
 
 experiments/.stack-work/
 experiments/experiments.cabal
