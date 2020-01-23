@@ -1,2 +1,6 @@
 Gemfile.lock
 _site/
+
+experiments/.stack-work/
+experiments/experiments.cabal
+experiments/stack.yaml.lock
