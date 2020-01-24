@@ -8,3 +8,11 @@ ghc-options:
 
 library:
   source-dirs: src
+
+tests:
+  spec:
+    source-dirs: test
+    main: Main.hs
+    dependencies:
+      - hspec
+      - komatsu
