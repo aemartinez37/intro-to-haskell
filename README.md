@@ -1,5 +1,7 @@
 # Introduction to Haskell
 
+[![CircleCI](https://circleci.com/gh/stackbuilders/intro-to-haskell.svg?style=shield&circle-token=d2d38df7299afbee3dd683e6f47f9b3afad4c51c)](https://circleci.com/gh/stackbuilders/intro-to-haskell)
+
 ## Resources
 
 - [Haskell](https://www.haskell.org/)

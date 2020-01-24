@@ -1,0 +1,11 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: fpco/stack-build:lts-14.21
+    steps:
+      - checkout
+      - run:
+          command: stack build
+      - run:
+          command: stack build --test --no-run-tests
