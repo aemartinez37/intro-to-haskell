@@ -5,13 +5,15 @@
 [1]: https://circleci.com/gh/stackbuilders/intro-to-haskell
 [2]: https://circleci.com/gh/stackbuilders/intro-to-haskell.svg?style=shield&circle-token=d2d38df7299afbee3dd683e6f47f9b3afad4c51c
 
-## About this course
+Welcome to Stack Builders' introduction to Haskell!
+
+## About
 
 beginner level
 
 approx. 10 weeks to complete
 
-## Bibliography
+## Resources
 
 - [Haskell](https://www.haskell.org/)
 
@@ -89,7 +91,7 @@ approx. 10 weeks to complete
       <td>Week 10</td>
       <td>Lazy evaluation</td>
       <td><a href="/exams/04.md">Exam 4</a></td>
-      <td></td>
+      <td><a href="/komatsu/README.md">Komatsu, 11–17</a></td>
     </tr>
   </tbody>
 </table>

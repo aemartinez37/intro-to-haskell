@@ -31,11 +31,11 @@ module Komatsu where
 --
 -- To test your solution, run:
 --
---   > :main --match "skips"
+--   > :main --match "Exercise 1/skips"
 --
 -- Or:
 --
---   stack build komatsu:test:spec --ta '--match "skips"'
+--   stack build komatsu:test:spec --ta '--match "Exercise 1/skips"'
 
 skips :: [a] -> [[a]]
 skips = undefined
@@ -66,6 +66,14 @@ skips = undefined
 --  ******  *
 -- ==========
 -- 0123456789
+--
+-- To test your solution, run:
+--
+--   > :main --match "Exercise 2/histogram"
+--
+-- Or:
+--
+--   stack build komatsu:test:spec --ta '--match "Exercise 2/histogram"'
 
 histogram :: [Integer] -> String
 histogram = undefined
@@ -92,11 +100,11 @@ histogram = undefined
 --
 -- To test your solution, run:
 --
---   > :main --match "sieveSundaram"
+--   > :main --match "Exercise 3/sieveSundaram"
 --
 -- Or:
 --
---   stack build komatsu:test:spec --ta '--match "sieveSundaram"'
+--   stack build komatsu:test:spec --ta '--match "Exercise 3/sieveSundaram"'
 
 sieveSundaram :: Integer -> [Integer]
 sieveSundaram = undefined
@@ -123,11 +131,11 @@ sieveSundaram = undefined
 --
 -- To test your solution, run:
 --
---   > :main --match "myLast"
+--   > :main --match "Exercise 4/myLast"
 --
 -- Or:
 --
---   stack build komatsu:test:spec --ta '--match "myLast"'
+--   stack build komatsu:test:spec --ta '--match "Exercise 4/myLast"'
 
 myLast :: [a] -> Maybe a
 myLast = undefined
@@ -151,11 +159,11 @@ myLast = undefined
 --
 -- To test your solution, run:
 --
---   > :main --match "myLength"
+--   > :main --match "Exercise 5/myLength"
 --
 -- Or:
 --
---   stack build komatsu:test:spec --ta '--match "myLength"'
+--   stack build komatsu:test:spec --ta '--match "Exercise 5/myLength"'
 
 myLength :: [a] -> Int
 myLength = undefined
@@ -179,11 +187,11 @@ myLength = undefined
 --
 -- To test your solution, run:
 --
---   > :main --match "myReverse"
+--   > :main --match "Exercise 6/myReverse"
 --
 -- Or:
 --
---   stack build komatsu:test:spec --ta '--match "myReverse"'
+--   stack build komatsu:test:spec --ta '--match "Exercise 6/myReverse"'
 
 myReverse :: [a] -> [a]
 myReverse = undefined
@@ -205,11 +213,11 @@ myReverse = undefined
 --
 -- To test your solution, run:
 --
---   > :main --match "compress"
+--   > :main --match "Exercise 7/compress"
 --
 -- Or:
 --
---   stack build komatsu:test:spec --ta '--match "compress"'
+--   stack build komatsu:test:spec --ta '--match "Exercise 7/compress"'
 
 compress :: [a] -> [a]
 compress = undefined
@@ -233,11 +241,11 @@ compress = undefined
 --
 -- To test your solution, run:
 --
---   > :main --match "myGroup"
+--   > :main --match "Exercise 8/myGroup"
 --
 -- Or:
 --
---   stack build komatsu:test:spec --ta '--match "myGroup"'
+--   stack build komatsu:test:spec --ta '--match "Exercise 8/myGroup"'
 
 myGroup :: [a] -> [[a]]
 myGroup = undefined
@@ -261,11 +269,11 @@ myGroup = undefined
 --
 -- To test your solution, run:
 --
---   > :main --match "encode:"
+--   > :main --match "Exercise 9/encode"
 --
 -- Or:
 --
---   stack build komatsu:test:spec --ta '--match "encode:"'
+--   stack build komatsu:test:spec --ta '--match "Exercise 9/encode"'
 
 encode :: [a] -> [(Int, a)]
 encode = undefined
@@ -289,11 +297,121 @@ encode = undefined
 --
 -- To test your solution, run:
 --
---   > :main --match "decode"
+--   > :main --match "Exercise 10/decode"
 --
 -- Or:
 --
---   stack build komatsu:test:spec --ta '--match "decode"'
+--   stack build komatsu:test:spec --ta '--match "Exercise 10/decode"'
 
 decode :: [(Int, a)] -> [a]
 decode = undefined
+
+----------------------------------------------------------------------
+-- Exercise 11
+--
+-- CIS 194 (Spring 2013): Homework 6, exercise 1
+--
+-- https://www.cis.upenn.edu/~cis194/spring13/hw/06-laziness.pdf
+--
+-- To test your solution, run:
+--
+--   > :main --match "Exercise 11"
+----------------------------------------------------------------------
+
+fib :: Integer -> Integer
+fib = undefined
+
+fibs1 :: [Integer]
+fibs1 = undefined
+
+----------------------------------------------------------------------
+-- Exercise 12
+--
+-- CIS 194 (Spring 2013): Homework 6, exercise 2
+--
+-- https://www.cis.upenn.edu/~cis194/spring13/hw/06-laziness.pdf
+--
+-- To test your solution, run:
+--
+--   > :main --match "Exercise 12"
+----------------------------------------------------------------------
+
+fibs2 :: [Integer]
+fibs2 = undefined
+
+----------------------------------------------------------------------
+-- Exercise 13
+--
+-- CIS 194 (Spring 2013): Homework 6, exercise 3
+--
+-- https://www.cis.upenn.edu/~cis194/spring13/hw/06-laziness.pdf
+----------------------------------------------------------------------
+
+data Stream a
+
+instance Show a => Show (Stream a) where
+  show = undefined
+
+streamToList :: Stream a -> [a]
+streamToList = undefined
+
+----------------------------------------------------------------------
+-- Exercise 14
+--
+-- CIS 194 (Spring 2013): Homework 6, exercise 4
+--
+-- https://www.cis.upenn.edu/~cis194/spring13/hw/06-laziness.pdf
+--
+-- To test your solution, run:
+--
+--   > :main --match "Exercise 14"
+----------------------------------------------------------------------
+
+streamRepeat :: a -> Stream a
+streamRepeat = undefined
+
+streamMap :: (a -> b) -> Stream a -> Stream b
+streamMap = undefined
+
+streamFromSeed :: (a -> a) -> a -> Stream a
+streamFromSeed = undefined
+
+----------------------------------------------------------------------
+-- Exercise 15
+--
+-- CIS 194 (Spring 2013): Homework 6, exercise 5
+--
+-- https://www.cis.upenn.edu/~cis194/spring13/hw/06-laziness.pdf
+--
+-- To test your solution, run:
+--
+--   > :main --match "Exercise 15"
+----------------------------------------------------------------------
+
+nats :: Stream Integer
+nats = undefined
+
+ruler :: Stream Integer
+ruler = undefined
+
+----------------------------------------------------------------------
+-- Exercise 16 (Optional)
+--
+-- CIS 194 (Spring 2013): Homework 6, exercise 6
+--
+-- https://www.cis.upenn.edu/~cis194/spring13/hw/06-laziness.pdf
+----------------------------------------------------------------------
+
+x :: Stream Integer
+x = undefined
+
+----------------------------------------------------------------------
+-- Exercise 17 (Optional)
+--
+-- CIS 194 (Spring 2013): Homework 6, exercise 7
+--
+-- https://www.cis.upenn.edu/~cis194/spring13/hw/06-laziness.pdf
+----------------------------------------------------------------------
+
+fib4 :: Integer -> Integer
+fib4 = undefined
