@@ -13,15 +13,12 @@
 
 ## Modules
 
-- [Module 1](/docs/modules/01.md)
-- [Module 2](/docs/modules/02.md)
-- [Module 3](/docs/modules/03.md)
-- [Module 4](/docs/modules/04.md)
-- [Module 5](/docs/modules/05.md)
+Module | Exam
+------ | ----
+[Module 1](/docs/modules/01.md) |
+[Module 2](/docs/modules/02.md) | [Exam 1](/docs/exams/01.md)
+[Module 3](/docs/modules/03.md) | [Exam 2](/docs/exams/02.md)
+[Module 4](/docs/modules/04.md) | [Exam 3](/docs/exams/03.md)
+[Module 5](/docs/modules/05.md) | [Exam 4](/docs/exams/04.md)
 
-## Exams
-
-- [Exam 1](/docs/exams/01.md)
-- [Exam 2](/docs/exams/02.md)
-- [Exam 3](/docs/exams/03.md)
-- [Exam 4](/docs/exams/04.md)
+[Next](/docs/modules/01.md)
