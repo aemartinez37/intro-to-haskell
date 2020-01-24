@@ -4,7 +4,7 @@
 -- Luhn
 --
 -- This is a template to solve CIS 194 (Spring 2013): Homework 1,
--- exercises 1–4 (validating credit card numbers).
+-- exercises 1–4 (Validating credit card numbers).
 --
 -- https://www.cis.upenn.edu/~cis194/spring13/hw/01-intro.pdf
 --
