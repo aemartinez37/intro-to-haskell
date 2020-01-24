@@ -1,3 +1,14 @@
+----------------------------------------------------------------------
+-- |
+--
+-- Hangman (Tests)
+--
+-- To test your solution, run:
+--
+--   stack build hangman:test:spec
+--
+----------------------------------------------------------------------
+
 module Main (main) where
 
 -- hangman
