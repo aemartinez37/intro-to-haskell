@@ -13,8 +13,8 @@
 
 ## Modules
 
-- [Module 1](/modules/01)
-- [Module 2]()
-- [Module 3]()
-- [Module 4]()
-- [Module 5]()
+- [Module 1](docs/modules/01.md)
+- [Module 2](docs/modules/02.md)
+- [Module 3](docs/modules/03.md)
+- [Module 4](docs/modules/04.md)
+- [Module 5](docs/modules/05.md)
