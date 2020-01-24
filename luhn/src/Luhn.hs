@@ -1,7 +1,7 @@
 ----------------------------------------------------------------------
 -- |
 --
--- The Luhn algorithm
+-- Luhn
 --
 -- This is a template to solve CIS 194 (Spring 2013): Homework 1,
 -- exercises 1–4 (validating credit card numbers).

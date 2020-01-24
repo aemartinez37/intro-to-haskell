@@ -1,7 +1,7 @@
 ----------------------------------------------------------------------
 -- |
 --
---
+-- Komatsu
 --
 -- To work on your solution, run:
 --
@@ -11,24 +11,23 @@
 
 module Komatsu where
 
--- cis 194 hw 3, ex 1, hopscotch
-
 ----------------------------------------------------------------------
 -- Exercise 1
+--
+-- CIS 194 (Spring 2013): Homework 3, exercise 1 (Hopscotch)
+--
+-- https://www.cis.upenn.edu/~cis194/spring13/hw/03-rec-poly.pdf
 ----------------------------------------------------------------------
 
 -- |
 --
+-- Examples:
+--
 -- >>> skips "ABCD"
 -- ["ABCD","BD","C","D"]
--- >>> skips "hello!"
--- ["hello!","el!","l!","l","o","!"]
--- >>> skips [1]
--- [[1]]
+--
 -- >>> skips [True, False]
 -- [[True,False],[False]]
--- >>> skips []
--- []
 --
 -- To test your solution, run:
 --
@@ -41,13 +40,17 @@ module Komatsu where
 skips :: [a] -> [[a]]
 skips = undefined
 
--- cis 194 h2 3, ex 3, histogram
-
 ----------------------------------------------------------------------
--- Exercise 3
+-- Exercise 2
+--
+-- CIS 194 (Spring 2013): Homework 3, exercise 3 (Histogram)
+--
+-- https://www.cis.upenn.edu/~cis194/spring13/hw/03-rec-poly.pdf
 ----------------------------------------------------------------------
 
 -- |
+--
+-- Examples:
 --
 -- >>> putStr (histogram [1,1,1,5])
 --  *
@@ -55,6 +58,7 @@ skips = undefined
 --  *   *
 -- ==========
 -- 0123456789
+--
 -- >>> putStr (histogram [1,4,5,4,6,6,3,4,2,4,9])
 --     *
 --     *
@@ -66,28 +70,25 @@ skips = undefined
 histogram :: [Integer] -> String
 histogram = undefined
 
--- cis 194 h4, ex 4, finding primes
-
 ----------------------------------------------------------------------
--- Exercise 4
+-- Exercise 3
+--
+-- CIS 194 (Spring 2013): Homework 4, exercise 4 (Finding primes)
+--
+-- https://www.cis.upenn.edu/~cis194/spring13/hw/04-higher-order.pdf
 ----------------------------------------------------------------------
 
 -- |
 --
--- >>> sieveSundaram 0
--- []
+-- Implement the sieve of Sundaram.
+--
+-- Examples:
+--
 -- >>> sieveSundaram 1
 -- [3]
--- >>> sieveSundaram 2
--- [3,5]
--- >>> sieveSundaram 3
--- [3,5,7]
--- >>> sieveSundaram 4
--- [3,5,7]
+--
 -- >>> sieveSundaram 5
 -- [3,5,7,11]
--- >>> sieveSundaram 10
--- [3,5,7,11,13,17,19]
 --
 -- To test your solution, run:
 --
@@ -100,13 +101,25 @@ histogram = undefined
 sieveSundaram :: Integer -> [Integer]
 sieveSundaram = undefined
 
--- | Problem 1, find the lst element of a list.
+----------------------------------------------------------------------
+-- Exercise 4
 --
--- >>> myLast [1, 2, 3, 4]
--- 4
+-- H-99: Ninety-nine Haskell problems, problem 1
 --
--- >>> myLast ['x', 'y', 'z']
--- 'z'
+-- https://wiki.haskell.org/99_questions/1_to_10#Problem_1
+----------------------------------------------------------------------
+
+-- |
+--
+-- Extract the last element of a list.
+--
+-- Examples:
+--
+-- >>> myLast []
+-- Nothing
+--
+-- >>> myLast [1..5]
+-- Just 5
 --
 -- To test your solution, run:
 --
@@ -116,16 +129,25 @@ sieveSundaram = undefined
 --
 --   stack build komatsu:test:spec --ta '--match "myLast"'
 
-myLast :: [a] -> a
+myLast :: [a] -> Maybe a
 myLast = undefined
 
--- | Problem 4, Find the number of elements of a list.
+----------------------------------------------------------------------
+-- Exercise 5
 --
--- >>> myLength [123, 456, 789]
--- 3
+-- H-99: Ninety-nine Haskell problems, problem 4
 --
--- >>> myLength "Hello, world!"
--- 13
+-- https://wiki.haskell.org/99_questions/1_to_10#Problem_4
+----------------------------------------------------------------------
+
+-- |
+--
+-- Return the number of elements of a list.
+--
+-- Example:
+--
+-- >>> myLength [1..5]
+-- 5
 --
 -- To test your solution, run:
 --
@@ -138,13 +160,22 @@ myLast = undefined
 myLength :: [a] -> Int
 myLength = undefined
 
--- | Problem 5, Reverse a list.
+----------------------------------------------------------------------
+-- Exercise 6
 --
--- >>> myReverse "A man, a plan, a canal, panama!"
--- "!amanap ,lanac a ,nalp a ,nam A"
+-- H-99: Ninety-nine Haskell problems, problem 5
 --
--- >>> myReverse [1,2,3,4]
---[4,3,2,1]
+-- https://wiki.haskell.org/99_questions/1_to_10#Problem_5
+----------------------------------------------------------------------
+
+-- |
+--
+-- Return the elements of a list in reverse order.
+--
+-- Example:
+--
+-- >>> myReverse [1..5]
+--[5,4,3,2,1]
 --
 -- To test your solution, run:
 --
@@ -157,13 +188,20 @@ myLength = undefined
 myReverse :: [a] -> [a]
 myReverse = undefined
 
--- | Problem 8, Eliminate consecutive duplicates of list elements.
+----------------------------------------------------------------------
+-- Exercise 7
 --
--- If a list contains repeated elements they should be replaced with a single copy of the element. The order of the elements should not be changed.
+-- H-99: Ninety-nine Haskell problems, problem 8
 --
+-- https://wiki.haskell.org/99_questions/1_to_10#Problem_8
+----------------------------------------------------------------------
+
+-- |
 --
--- >>> compress "aaaabccaadeeee"
--- "abcade"
+-- Remove consecutive duplicates from a list.
+--
+-- >>> compress "wwwbwwbbwbbb"
+-- "wbwbwb"
 --
 -- To test your solution, run:
 --
@@ -176,11 +214,22 @@ myReverse = undefined
 compress :: [a] -> [a]
 compress = undefined
 
--- | Problem 9, Pack consecutive duplicates of list elements into sublists. If a list contains repeated elements they should be placed in separate sublists.
+----------------------------------------------------------------------
+-- Exercise 8
 --
--- >>> pack ['a', 'a', 'a', 'a', 'b', 'c', 'c', 'a',
---             'a', 'd', 'e', 'e', 'e', 'e']
--- ["aaaa","b","cc","aa","d","eeee"]
+-- H-99: Ninety-nine Haskell problems, problem 9
+--
+-- https://wiki.haskell.org/99_questions/1_to_10#Problem_9
+----------------------------------------------------------------------
+
+-- |
+--
+-- Group consecutive duplicates from a list.
+--
+-- Example:
+--
+-- >>> myGroup "wwwbwwbbwbbb"
+-- ["www","b","ww","bb","w","bbb"]
 --
 -- To test your solution, run:
 --
@@ -193,30 +242,50 @@ compress = undefined
 myGroup :: [a] -> [[a]]
 myGroup = undefined
 
--- | Problem 10, Run-length encoding of a list. Use the result of problem P09 to implement the so-called run-length encoding data compression method. Consecutive duplicates of elements are encoded as lists (N E) where N is the number of duplicates of the element E.
+----------------------------------------------------------------------
+-- Exercise 9
 --
--- >>> encode "aaaabccaadeeee"
--- [(4,'a'),(1,'b'),(2,'c'),(2,'a'),(1,'d'),(4,'e')]
+-- H-99: Ninety-nine Haskell problems, problem 10
+--
+-- https://wiki.haskell.org/99_questions/1_to_10#Problem_10
+----------------------------------------------------------------------
+
+-- |
+--
+-- Run-length encode a list.
+--
+-- Example:
+--
+-- >>> encode "wwwbwwbbwbbb"
+-- [(3,'w'),(1,'b'),(2,'w'),(2,'b'),(1,'w'),(3,'b')]
 --
 -- To test your solution, run:
 --
---   > :main --match "encode"
+--   > :main --match "encode:"
 --
 -- Or:
 --
---   stack build komatsu:test:spec --ta '--match "encode"'
+--   stack build komatsu:test:spec --ta '--match "encode:"'
 
 encode :: [a] -> [(Int, a)]
 encode = undefined
 
--- | Problem 12,  Decode a run-length encoded list.
+----------------------------------------------------------------------
+-- Exercise 10
 --
--- Given a run-length code list generated as specified in problem 11. Construct its uncompressed version.
+-- H-99: Ninety-nine Haskell problems, problem 12
 --
--- >>> decodeModified
---       [Multiple 4 'a',Single 'b',Multiple 2 'c',
---        Multiple 2 'a',Single 'd',Multiple 4 'e']
--- "aaaabccaadeeee"
+-- https://wiki.haskell.org/99_questions/11_to_20#Problem_12
+----------------------------------------------------------------------
+
+-- |
+--
+-- Decode a run-length encoded list.
+--
+-- Example:
+--
+-- >>> decode (encode "wwwbwwbbwbbb")
+-- "wwwbwwbbwbbb"
 --
 -- To test your solution, run:
 --

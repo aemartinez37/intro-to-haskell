@@ -14,5 +14,6 @@ tests:
     source-dirs: test
     main: Main.hs
     dependencies:
+      - QuickCheck
       - hspec
       - komatsu
