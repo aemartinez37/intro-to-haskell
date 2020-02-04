@@ -1,0 +1,148 @@
+\documentclass[a4paper,10pt,addpoints]{exam}
+
+\pagestyle{headandfoot}
+
+\headrule
+\header{Stack Builders School of Haskell}{Session 3 Exam}{January 8, 2015}
+\footer{}{\thepage}{}
+
+\begin{document}
+
+\begin{center}
+  \fbox{\fbox{\parbox{5.5in}{\centering
+        The objective of this exam is to test your undertanding of
+        weeks 5 and 6 of the CIS 194 Spring 2013 course
+        (parametricity, type classes, and lazy evaluation).}}}
+\end{center}
+
+\vspace{0.1in}
+
+\makebox[\textwidth]{Name:\enspace\hrulefill}
+
+\vspace{0.2in}
+
+\begin{questions}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \question
+
+  Consider the following function:
+
+  \begin{verbatim}
+    sd :: Eq b => (a -> b) -> a -> b -> Bool
+    sd = ?
+  \end{verbatim}
+
+  How would you define \texttt{sd} taking into account its type
+  signature?
+
+  \begin{verbatim}
+    sd f x y =
+  \end{verbatim}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \question
+
+  Consider the following function:
+
+  \begin{verbatim}
+    g :: ?
+    g x y = x + 1 > y
+  \end{verbatim}
+
+  What is the type of \texttt{g}?
+
+  \vspace{0.15in}
+
+  \begin{choices}
+    \choice \texttt{Ord a => a -> a -> Bool}
+    \choice \texttt{(Eq a, Num a) => a -> a -> Bool}
+    \choice \texttt{(Eq a, Ord a) => a -> a -> Bool}
+    \choice \texttt{(Num a, Ord a) => a -> a -> Bool}
+  \end{choices}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \question
+
+  Given the following functions:
+
+  \begin{verbatim}
+    iterate :: (a -> a) -> a -> [a]
+    iterate f x = x : iterate f (f x)
+
+    take :: Int -> [a] -> [a]
+    take n _      | n <= 0 = []
+    take _ []              = []
+    take n (x:xs)          = x : take (n - 1) xs
+  \end{verbatim}
+
+  Can you complete the step-by-step evaluation of \texttt{take 3
+    (iterate (+ 1) 0)}?
+
+  \begin{verbatim}
+      take 3 (iterate (+ 1) 0)
+    = take 3 (0 : iterate (+ 1) (0 + 1))
+    = 0 : take (3 - 1) (iterate (+ 1) (0 + 1))
+    = 0 : take 2 (iterate (+ 1) (0 + 1))
+    =
+  \end{verbatim}
+
+  \vspace{\stretch{1.5}}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \newpage
+
+  \question
+
+  A stream represents a list that must be infinite:
+
+  \begin{verbatim}
+    data Stream a = Cons a (Stream a) deriving Show
+  \end{verbatim}
+
+  We can define the ruler function
+  $$0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0, 1, 0, 2, ...$$
+  as follows:
+
+  \begin{verbatim}
+    ruler :: Stream Integer
+    ruler = ruler' 0
+      where
+        ruler' x = interleave (repeat x) (ruler' (x + 1))
+  \end{verbatim}
+
+  Here, the \texttt{repeat} function is defined as:
+
+  \begin{verbatim}
+    repeat :: a -> Stream a
+    repeat x = Cons x (repeat x)
+  \end{verbatim}
+
+  And \texttt{interleave} could be defined as either:
+
+  \begin{verbatim}
+    interleaveA :: Stream a -> Stream a -> Stream a
+    interleaveA (Cons x xs) (Cons y ys) = Cons x (Cons y (interleave ys xs))
+  \end{verbatim}
+
+  Or:
+
+  \begin{verbatim}
+    interleaveB :: Stream a -> Stream a -> Stream a
+    interleaveB (Cons x xs) ys = Cons x (interleave ys xs)
+  \end{verbatim}
+
+  What is the difference between using \texttt{interleaveA} or
+  \texttt{interleaveB} in \texttt{ruler}?
+
+  \vspace{\stretch{1}}
+
+\end{questions}
+
+\newpage
+
+\end{document}

@@ -1,0 +1,146 @@
+\documentclass[a4paper,10pt,addpoints]{exam}
+
+\pagestyle{headandfoot}
+
+\headrule
+\header{Stack Builders School of Haskell}{Session 4 Exam}{January 15, 2015}
+\footer{}{\thepage}{}
+
+\begin{document}
+
+\begin{center}
+  \fbox{\fbox{\parbox{5.5in}{\centering
+        The objective of this exam is to test your understanding of
+        week 7 of the CIS 194 Spring 2013 course (folds and monoids).
+  }}}
+\end{center}
+
+\vspace{0.1in}
+
+\makebox[\textwidth]{Name:\enspace\hrulefill}
+
+\vspace{0.2in}
+
+\begin{questions}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \question[1]
+
+  The \texttt{foldr} function, applied to a binary operator, a
+  starting value, and a list, reduces the list using the binary
+  operator, from right to left:
+
+  \begin{verbatim}
+    foldr :: (a -> b -> b) -> b -> [a] -> b
+    foldr f acc []     = acc
+    foldr f acc (x:xs) = f x (foldr f acc xs)
+  \end{verbatim}
+
+  The \texttt{filter} function, applied to a predicate and a list,
+  returns the list of those elements that satisfy the predicate:
+
+  \begin{verbatim}
+    filter :: (a -> Bool) -> [a] -> [a]
+    filter _    []     = []
+    filter pred (x:xs)
+      | pred x         = x : filter pred xs
+      | otherwise      = filter pred xs
+  \end{verbatim}
+
+  Can you define \texttt{filter} in terms of \texttt{foldr}?
+
+  \vspace{\stretch{0.5}}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \question
+
+  The \texttt{foldl} function, applied to a binary operator, a
+  starting value, and a list, reduces the list using the binary
+  operator, from left to right.
+
+  \begin{parts}
+
+    \part[1]
+
+    Complete the definition of \texttt{foldl}:
+
+    \vspace{0.15in}
+
+    \begin{verbatim}
+      foldl :: (b -> a -> b) -> b -> [a] -> b
+      foldl f acc []     = acc
+      foldl f acc (x:xs) =
+    \end{verbatim}
+
+%%    \vspace{\stretch{0.1}}
+
+    \bonuspart[1]
+
+    What is the difference between the following expressions?
+
+    \vspace{0.15in}
+
+    \begin{itemize}
+    \item
+      \texttt{foldr (+) 0 [1..5]}
+    \item
+      \texttt{foldl (+) 0 [1..5]}
+    \end{itemize}
+
+  \vspace{\stretch{0.5}}
+
+  \end{parts}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \newpage
+
+  \question[1]
+
+  A monoid is a type with an associative binary operation that has an
+  identity:
+
+  \begin{verbatim}
+    class Monoid a where
+      mempty  :: a
+      mappend :: a -> a -> a
+  \end{verbatim}
+
+  Instances of \texttt{Monoid} should satisfy the following laws:
+
+  \begin{itemize}
+  \item
+    \texttt{mappend mempty x = x}
+  \item
+    \texttt{mappend x mempty = x}
+  \item
+    \texttt{mappend x (mappend y z) = mappend (mappend x y) z}
+  \end{itemize}
+
+  Remember the \texttt{Maybe} type?
+
+  \begin{verbatim}
+    data Maybe a = Nothing | Just a
+  \end{verbatim}
+
+  Define an instance of \texttt{Monoid} for \texttt{Maybe a}:
+
+  \begin{verbatim}
+    instance Monoid a => Monoid (Maybe a) where
+      mempty :: Maybe a
+      mempty
+
+
+      mappend :: Maybe a -> Maybe a -> Maybe a
+      mappend
+  \end{verbatim}
+
+  \vspace{\stretch{1}}
+
+\end{questions}
+
+\newpage
+
+\end{document}

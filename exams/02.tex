@@ -1,0 +1,151 @@
+\documentclass[a4paper,10pt,addpoints]{exam}
+
+\pagestyle{headandfoot}
+
+\headrule
+\header{Stack Builders School of Haskell}{Session 5 Exam}{January 22, 2015}
+\footer{}{\thepage}{}
+
+\begin{document}
+
+\begin{center}
+  \fbox{\fbox{\parbox{5.5in}{\centering
+        The objective of this exam is to test your understanding of
+        weeks 9 and 10 of the CIS 194 Spring 2013 course (functors and
+        applicative functors).
+  }}}
+\end{center}
+
+\vspace{0.1in}
+
+\makebox[\textwidth]{Name:\enspace\hrulefill}
+
+\vspace{0.2in}
+
+The \texttt{Maybe} type encapsulates an optional value:
+
+\begin{verbatim}
+data Maybe a = Nothing | Just a deriving Show
+\end{verbatim}
+
+The \texttt{Functor} type class is used for types that can be mapped
+over:
+
+\begin{verbatim}
+class Functor f where                             instance Functor Maybe where
+  fmap :: (a -> b) -> f a -> f b                    fmap _ Nothing  = Nothing
+                                                    fmap f (Just x) = Just (f x)
+\end{verbatim}
+
+Instances of \texttt{Functor} should satisfy the following laws:
+
+\begin{itemize}
+\item
+  \texttt{fmap id == id}
+\item
+  \texttt{fmap (g .\ f) == fmap g .\ fmap f}
+\end{itemize}
+
+\texttt{(<\$>)} is an infix synonym for \texttt{fmap}:
+
+\begin{verbatim}
+(<$>) :: Functor f => (a -> b) -> f a -> f b
+(<$>) = fmap
+\end{verbatim}
+
+An applicative functor is a functor with application:
+
+\begin{verbatim}
+class Functor f => Applicative f where            instance Applicative Maybe where
+  pure  :: a -> f a                                 pure = Just
+  (<*>) :: f (a -> b) -> f a -> f b                 Nothing <*> _  = Nothing
+                                                    Just f  <*> mx = fmap f mx
+\end{verbatim}
+
+\begin{questions}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \question[1]
+
+  Every \texttt{Applicative} is also a \texttt{Functor}, so we can
+  define \texttt{fmap} in terms of \texttt{pure} and
+  \texttt{(<*>)}. Try it:
+
+  \begin{verbatim}
+    liftA :: Applicative f => (a -> b) -> f a -> f b
+    liftA f mx =
+  \end{verbatim}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \question[1]
+
+  What's so special about applicative functors? Why is an applicative
+  functor more powerful than a functor? If you want, you can use the
+  \texttt{Maybe} type as an example.
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \newpage
+
+  \question[1]
+
+  We can represent a book as an author and a title:
+
+  \begin{verbatim}
+    data Book = Book String String deriving Show
+  \end{verbatim}
+
+  Consider the following expressions:
+
+  \begin{verbatim}
+    maybeAuthor1, maybeAuthor2 :: Maybe String
+    maybeAuthor1 = Just "Charles Dickens"
+    maybeAuthor2 = Nothing
+
+    maybeTitle1, maybeTitle2 :: Maybe String
+    maybeTitle1 = Nothing
+    maybeTitle2 = Just "David Copperfield"
+  \end{verbatim}
+
+  Can you match the following expressions with their results?
+
+  \vspace{0.15in}
+
+  \begin{parts}
+    \part \texttt{ghci> Book <\$> maybeAuthor1 <*> maybeTitle1} \answerline
+    \part \texttt{ghci> Book <\$> maybeAuthor1 <*> maybeTitle2} \answerline
+    \part \texttt{ghci> Book <\$> maybeAuthor2 <*> maybeTitle1} \answerline
+    \part \texttt{ghci> Book <\$> maybeAuthor2 <*> maybeTitle2} \answerline
+  \end{parts}
+
+  For each expression, choose one of the following options:
+
+  \begin{enumerate}
+  \item \texttt{Just (Book "David Copperfield" "Charles Dickens")}
+  \item \texttt{Nothing}
+  \item \texttt{Just (Book "Charles Dickens" "David Copperfield")}
+  \item \texttt{Book (Just "Charles Dickens") (Just "David Copperfield")}
+  \end{enumerate}
+
+  \bonusquestion[1]
+
+  An \texttt{Alternative} is a monoid on applicative functors:
+
+  \begin{verbatim}
+class Applicative f => Alternative f where         instance Alternative Maybe where
+  empty :: f a                                       empty = Nothing
+  (<|>) :: f a -> f a -> f a                         Nothing <|> mx = mx
+                                                     mx      <|> _  = mx
+  \end{verbatim}
+
+  What's so special about \texttt{Alternative}? Why is an
+  \texttt{Alternative} useful? If you want, you can use the
+  \texttt{Maybe} type as an example.
+
+\end{questions}
+
+\newpage
+
+\end{document}
