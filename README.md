@@ -38,14 +38,14 @@ For more resources, see https://www.haskell.org/documentation/.
       <td>Week 2</td>
       <td>Types and classes</td>
       <td></td>
-      <td><a href="/luhn/">Luhn</a></td>
+      <td></td>
     </tr>
     <tr>
       <td rowSpan=2><a href="/modules/02.md">Module 2: Functions</a></td>
       <td>Week 3</td>
       <td>Defining functions</td>
       <td></td>
-      <td></td>
+      <td><a href="/luhn/">Luhn</a></td>
     </tr>
     <tr>
       <td>Week 4</td>
