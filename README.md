@@ -54,20 +54,20 @@ For more resources, see https://www.haskell.org/documentation/.
       <td><a href="/komatsu/">Komatsu (1–6)</a></td>
     </tr>
     <tr>
-      <td><a href="/modules/03.md">Module 3: Types and classes</a></td>
+      <td rowSpan=2><a href="/modules/03.md">Module 3: Types and classes</a></td>
       <td>Week 5</td>
       <td>Declaring types and classes</td>
       <td><a href="/exams/01.md">Exam 1</a></td>
       <td><a href="/komatsu/">Komatsu (7–10)</a></td>
     </tr>
     <tr>
-      <td rowSpan=3><a href="/modules/04.md">Module 4: Monads</a></td>
       <td>Week 6</td>
       <td>Functors</td>
       <td></td>
       <td><a href="/hangman/">Hangman</a></td>
     </tr>
     <tr>
+      <td rowSpan=2><a href="/modules/04.md">Module 4: Monads</a></td>
       <td>Week 7</td>
       <td>Applicative functors</td>
       <td><a href="/exams/02.md">Exam 2</a></td>
