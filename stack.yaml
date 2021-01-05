@@ -4,4 +4,4 @@ packages:
 - hangman
 - komatsu
 - luhn
-resolver: lts-14.22
+resolver: lts-16.27
