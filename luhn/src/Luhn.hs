@@ -38,7 +38,14 @@ module Luhn where
 -- [1,2,3,4]
 
 toDigits :: Integer -> [Integer]
-toDigits = undefined
+toDigits x = reverse (toDigitsRev x)
+
+toDigitsRev :: Integer -> [Integer]
+toDigitsRev x
+  | x <= 0      = []
+  | otherwise   = b : toDigitsRev a
+  where
+    (a, b) = divMod x 10
 
 ----------------------------------------------------------------------
 -- Exercise 2
@@ -53,7 +60,7 @@ toDigits = undefined
 -- [1,4,3]
 
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther = undefined
+doubleEveryOther xs = reverse [ if (i `mod` 2) /= 0 then (x + x) else x | (i,x) <- zip [0..] (reverse xs)]
 
 ----------------------------------------------------------------------
 -- Exercise 3
@@ -65,7 +72,14 @@ doubleEveryOther = undefined
 -- 22
 
 sumDigits :: [Integer] -> Integer
-sumDigits = undefined
+sumDigits xs = sum (map (\x -> sum (toDigits x)) xs)
+
+singleDigitList :: [Integer] -> [Integer]
+singleDigitList [] = []
+singleDigitList (x:xs) = (toDigits x) ++ (singleDigitList xs)
+
+sumDigits' :: [Integer] -> Integer
+sumDigits' xs = sum (singleDigitList xs)
 
 ----------------------------------------------------------------------
 -- Exercise 4
@@ -80,4 +94,4 @@ sumDigits = undefined
 -- False
 
 validate :: Integer -> Bool
-validate = undefined
+validate x = (sumDigits (doubleEveryOther (toDigits x))) `mod` 10 == 0
