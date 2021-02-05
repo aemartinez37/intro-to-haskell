@@ -38,7 +38,17 @@ module Komatsu where
 --   stack build komatsu:test:spec --ta '--match "Exercise 1/skips"'
 
 skips :: [a] -> [[a]]
-skips = undefined
+skips xs =
+  let f i _ = [xs !! y | y <- [i,i+i+1..l]]
+      l = (length xs) - 1
+  in zipWith f [0..] xs
+
+skips' :: [a] -> [[a]]
+skips' xs =
+  let f (0, _) = xs
+      f (i, _) = [xs !! y | y <- [i,i+i+1..l]]
+      l = (length xs) - 1
+  in map f (zip [0..] xs)
 
 ----------------------------------------------------------------------
 -- Exercise 2
@@ -74,9 +84,48 @@ skips = undefined
 -- Or:
 --
 --   stack build komatsu:test:spec --ta '--match "Exercise 2/histogram"'
-
 histogram :: [Integer] -> String
-histogram = undefined
+histogram xs = foldl (\acc x -> (g x) ++ acc) "==========\n0123456789\n" [1..(maximum histoElms)]
+  where
+    g x = [ if y >= x then '*' else ' ' | y <- histoElms] ++ "\n"
+    histoElms = elementsRepetitions xs
+
+-- |
+-- `repetitions` => retrieves the times that a number repeat in an array
+-- >>> repetitions 3 [1,2,3,4,5,3,7,8]
+-- 2
+--
+-- To test your solution, run:
+--
+--   > :main --match "Exercise 2/repetitions"
+--
+-- Or:
+--
+--   stack build komatsu:test:spec --ta '--match "Exercise 2/repetitions"'
+repetitions :: (Num p, Eq t) => t -> [t] -> p
+repetitions _ [] = 0
+repetitions n (x:xs)
+  | n == x = 1 + (repetitions n xs)
+  | otherwise = repetitions n xs
+
+-- |
+-- `elementsRepetitions` => retrieves an array with the
+-- total of repetitions for each index (0 - 9) in an array received
+-- >>> elementsRepetitions [1,2,3,4,5,3,7,8]
+-- [0,1,1,2,1,1,0,1,1,0]
+--
+-- To test your solution, run:
+--
+--   > :main --match "Exercise 2/elementsRepetitions"
+--
+-- Or:
+--
+--   stack build komatsu:test:spec --ta '--match "Exercise 2/elementsRepetitions"'
+elementsRepetitions :: (Num b, Num a, Enum a, Eq a) => [a] -> [b]
+elementsRepetitions xs =
+  let f x = (x, repetitions x xs)
+      g xs = map snd xs 
+  in g (map f [0..9])
 
 ----------------------------------------------------------------------
 -- Exercise 3
@@ -107,7 +156,10 @@ histogram = undefined
 --   stack build komatsu:test:spec --ta '--match "Exercise 3/sieveSundaram"'
 
 sieveSundaram :: Integer -> [Integer]
-sieveSundaram = undefined
+sieveSundaram n = map (\x -> 2*x + 1) (filter (`notElem` excluded) initialList)
+  where
+    excluded = [(x + y + 2 * x * y) | x <- initialList, y <- initialList, (x + y + 2 * x * y) <= n]
+    initialList = [1..n]
 
 ----------------------------------------------------------------------
 -- Exercise 4
@@ -138,7 +190,13 @@ sieveSundaram = undefined
 --   stack build komatsu:test:spec --ta '--match "Exercise 4/myLast"'
 
 myLast :: [a] -> Maybe a
-myLast = undefined
+myLast [] = Nothing
+myLast xs = (Just . head) $ foldl (\acc x -> x : acc) [] xs
+
+myLast' :: [a] -> Maybe a
+myLast' [] = Nothing
+myLast' [x] = Just x
+myLast' (_:xs) = myLast xs
 
 ----------------------------------------------------------------------
 -- Exercise 5
@@ -166,7 +224,7 @@ myLast = undefined
 --   stack build komatsu:test:spec --ta '--match "Exercise 5/myLength"'
 
 myLength :: [a] -> Int
-myLength = undefined
+myLength = foldr (\_ acc -> (+1) acc) 0
 
 ----------------------------------------------------------------------
 -- Exercise 6
@@ -194,7 +252,7 @@ myLength = undefined
 --   stack build komatsu:test:spec --ta '--match "Exercise 6/myReverse"'
 
 myReverse :: [a] -> [a]
-myReverse = undefined
+myReverse = foldl (\acc x -> x : acc) []
 
 ----------------------------------------------------------------------
 -- Exercise 7
