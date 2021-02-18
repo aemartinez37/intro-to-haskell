@@ -79,8 +79,7 @@ module Experiments where
 -- and show using your definition that product [2,3,4] = 24
 ----------------------------------------------------------------------
 product' :: Num a => [a] -> a
-product' [] = 1                      --(1)
-product' (x:xs) = x * product' xs    --(2)
+product' = foldr (*) 1
 ----------------------------------------------------------------------
 --   product' [2,3,4]
 -- =    {applying (2)}
