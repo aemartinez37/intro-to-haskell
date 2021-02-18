@@ -11,7 +11,7 @@
 
 module Komatsu where
 
-import Data.List (group, nub)
+import Data.List (group)
 
 ----------------------------------------------------------------------
 -- Exercise 1
@@ -280,7 +280,7 @@ myReverse = foldl (flip (:)) []
 --   stack build komatsu:test:spec --ta '--match "Exercise 7/compress"'
 
 compress :: (Eq a) => [a] -> [a]
-compress xs = concatMap nub $ group xs
+compress xs = fmap head $ myGroup xs
 
 ----------------------------------------------------------------------
 -- Exercise 8
@@ -307,11 +307,12 @@ compress xs = concatMap nub $ group xs
 --
 --   stack build komatsu:test:spec --ta '--match "Exercise 8/myGroup"'
 
-myGroup :: (Foldable t, Eq a) => t a -> [[a]]
-myGroup = foldl (flip g) []
+myGroup :: Eq a => [a] -> [[a]]
+myGroup [] = []
+myGroup [x] = [[x]]
+myGroup (x:xs) = [(fst touple ++ [x])] ++ myGroup (snd touple)
   where
-    g x [] = [[x]]
-    g x acc = if head (last acc) == x then init acc ++ [x : last acc] else acc ++ [[x]]
+    touple = span (== x) xs
 ----------------------------------------------------------------------
 -- Exercise 9
 --
