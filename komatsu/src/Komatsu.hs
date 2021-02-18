@@ -310,7 +310,7 @@ compress xs = fmap head $ myGroup xs
 myGroup :: Eq a => [a] -> [[a]]
 myGroup [] = []
 myGroup [x] = [[x]]
-myGroup (x:xs) = [(fst touple ++ [x])] ++ myGroup (snd touple)
+myGroup (x:xs) = (fst touple ++ [x]) : myGroup (snd touple)
   where
     touple = span (== x) xs
 ----------------------------------------------------------------------
