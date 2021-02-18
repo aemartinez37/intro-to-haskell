@@ -44,10 +44,10 @@ main =
         Hspec.it "skips [1, 2] == [[1, 2], [2]]" $
           Komatsu.skips ([1, 2] :: [Int]) `Hspec.shouldBe` [[1, 2], [2]]
     Hspec.describe "Exercise 2" $ do
-      Hspec.describe "repetitions" $ do
+      Hspec.describe "repetitions" $
         Hspec.it "repetitions 3 [1,2,3,4,5,3,7,8] == 2" $
           Komatsu.repetitions 3 [1,2,3,4,5,3,7,8] `Hspec.shouldBe` 2      
-      Hspec.describe "elementsRepetitions" $ do
+      Hspec.describe "elementsRepetitions" $
         Hspec.it "elementsRepetitions [1,2,3,4,5,3,7,8] == [0,1,1,2,1,1,0,1,1,0]" $
           Komatsu.elementsRepetitions [1,2,3,4,5,3,7,8] `Hspec.shouldBe` [0,1,1,2,1,1,0,1,1,0]       
       Hspec.describe "histogram" $ do

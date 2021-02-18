@@ -11,6 +11,8 @@
 
 module Komatsu where
 
+import Data.List (group, nub)
+
 ----------------------------------------------------------------------
 -- Exercise 1
 --
@@ -40,15 +42,15 @@ module Komatsu where
 skips :: [a] -> [[a]]
 skips xs =
   let f i _ = [xs !! y | y <- [i,i+i+1..l]]
-      l = (length xs) - 1
+      l = length xs - 1
   in zipWith f [0..] xs
 
 skips' :: [a] -> [[a]]
 skips' xs =
   let f (0, _) = xs
       f (i, _) = [xs !! y | y <- [i,i+i+1..l]]
-      l = (length xs) - 1
-  in map f (zip [0..] xs)
+      l = length xs - 1
+  in zipWith (curry f) [0 ..] xs
 
 ----------------------------------------------------------------------
 -- Exercise 2
@@ -85,7 +87,7 @@ skips' xs =
 --
 --   stack build komatsu:test:spec --ta '--match "Exercise 2/histogram"'
 histogram :: [Integer] -> String
-histogram xs = foldl (\acc x -> (g x) ++ acc) "==========\n0123456789\n" [1..(maximum histoElms)]
+histogram xs = foldl (\acc x -> g x ++ acc) "==========\n0123456789\n" [1..(maximum histoElms)]
   where
     g x = [ if y >= x then '*' else ' ' | y <- histoElms] ++ "\n"
     histoElms = elementsRepetitions xs
@@ -105,7 +107,7 @@ histogram xs = foldl (\acc x -> (g x) ++ acc) "==========\n0123456789\n" [1..(ma
 repetitions :: (Num p, Eq t) => t -> [t] -> p
 repetitions _ [] = 0
 repetitions n (x:xs)
-  | n == x = 1 + (repetitions n xs)
+  | n == x = 1 + repetitions n xs
   | otherwise = repetitions n xs
 
 -- |
@@ -124,7 +126,7 @@ repetitions n (x:xs)
 elementsRepetitions :: (Num b, Num a, Enum a, Eq a) => [a] -> [b]
 elementsRepetitions xs =
   let f x = (x, repetitions x xs)
-      g xs = map snd xs 
+      g = map snd 
   in g (map f [0..9])
 
 ----------------------------------------------------------------------
@@ -158,7 +160,7 @@ elementsRepetitions xs =
 sieveSundaram :: Integer -> [Integer]
 sieveSundaram n = map (\x -> 2*x + 1) (filter (`notElem` excluded) initialList)
   where
-    excluded = [(x + y + 2 * x * y) | x <- initialList, y <- initialList, (x + y + 2 * x * y) <= n]
+    excluded = [x + y + 2 * x * y | x <- initialList, y <- initialList, (x + y + 2 * x * y) <= n]
     initialList = [1..n]
 
 ----------------------------------------------------------------------
@@ -191,7 +193,7 @@ sieveSundaram n = map (\x -> 2*x + 1) (filter (`notElem` excluded) initialList)
 
 myLast :: [a] -> Maybe a
 myLast [] = Nothing
-myLast xs = (Just . head) $ foldl (\acc x -> x : acc) [] xs
+myLast xs = (Just . head) $ foldl (flip (:)) [] xs
 
 myLast' :: [a] -> Maybe a
 myLast' [] = Nothing
@@ -252,7 +254,7 @@ myLength = foldr (\_ acc -> (+1) acc) 0
 --   stack build komatsu:test:spec --ta '--match "Exercise 6/myReverse"'
 
 myReverse :: [a] -> [a]
-myReverse = foldl (\acc x -> x : acc) []
+myReverse = foldl (flip (:)) []
 
 ----------------------------------------------------------------------
 -- Exercise 7
@@ -277,8 +279,8 @@ myReverse = foldl (\acc x -> x : acc) []
 --
 --   stack build komatsu:test:spec --ta '--match "Exercise 7/compress"'
 
-compress :: [a] -> [a]
-compress = undefined
+compress :: (Eq a) => [a] -> [a]
+compress xs = concatMap nub $ group xs
 
 ----------------------------------------------------------------------
 -- Exercise 8
@@ -305,9 +307,11 @@ compress = undefined
 --
 --   stack build komatsu:test:spec --ta '--match "Exercise 8/myGroup"'
 
-myGroup :: [a] -> [[a]]
-myGroup = undefined
-
+myGroup :: (Foldable t, Eq a) => t a -> [[a]]
+myGroup = foldl (flip g) []
+  where
+    g x [] = [[x]]
+    g x acc = if head (last acc) == x then init acc ++ [x : last acc] else acc ++ [[x]]
 ----------------------------------------------------------------------
 -- Exercise 9
 --
@@ -333,8 +337,8 @@ myGroup = undefined
 --
 --   stack build komatsu:test:spec --ta '--match "Exercise 9/encode"'
 
-encode :: [a] -> [(Int, a)]
-encode = undefined
+encode :: Eq b => [b] -> [(Int, b)]
+encode xs = map (\x -> (length x, head x)) $ group xs
 
 ----------------------------------------------------------------------
 -- Exercise 10
@@ -362,7 +366,7 @@ encode = undefined
 --   stack build komatsu:test:spec --ta '--match "Exercise 10/decode"'
 
 decode :: [(Int, a)] -> [a]
-decode = undefined
+decode = concatMap (uncurry replicate)
 
 ----------------------------------------------------------------------
 -- Exercise 11
@@ -377,10 +381,12 @@ decode = undefined
 ----------------------------------------------------------------------
 
 fib :: Integer -> Integer
-fib = undefined
+fib 0 = 0
+fib 1 = 1
+fib x = fib (x - 1) + fib (x - 2)
 
 fibs1 :: [Integer]
-fibs1 = undefined
+fibs1 = map fib [0..]
 
 ----------------------------------------------------------------------
 -- Exercise 12

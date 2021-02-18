@@ -60,7 +60,7 @@ toDigitsRev x
 -- [1,4,3]
 
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther xs = reverse [ if (i `mod` 2) /= 0 then (x + x) else x | (i,x) <- zip [0..] (reverse xs)]
+doubleEveryOther xs = reverse [ if (i `mod` 2) /= 0 then x + x else x | (i,x) <- zip [0..] (reverse xs)]
 
 ----------------------------------------------------------------------
 -- Exercise 3
@@ -72,11 +72,10 @@ doubleEveryOther xs = reverse [ if (i `mod` 2) /= 0 then (x + x) else x | (i,x) 
 -- 22
 
 sumDigits :: [Integer] -> Integer
-sumDigits xs = sum (map (\x -> sum (toDigits x)) xs)
+sumDigits xs = sum (map (sum . toDigits) xs)
 
 singleDigitList :: [Integer] -> [Integer]
-singleDigitList [] = []
-singleDigitList (x:xs) = (toDigits x) ++ (singleDigitList xs)
+singleDigitList = concatMap toDigits
 
 sumDigits' :: [Integer] -> Integer
 sumDigits' xs = sum (singleDigitList xs)
@@ -94,4 +93,4 @@ sumDigits' xs = sum (singleDigitList xs)
 -- False
 
 validate :: Integer -> Bool
-validate x = (sumDigits (doubleEveryOther (toDigits x))) `mod` 10 == 0
+validate x = sumDigits (doubleEveryOther (toDigits x)) `mod` 10 == 0
