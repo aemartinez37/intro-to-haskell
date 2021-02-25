@@ -10,6 +10,8 @@
 ----------------------------------------------------------------------
 
 module Main (main) where
+import Hangman (hangman)
 
 main :: IO ()
-main = undefined
+main =
+    hangman
