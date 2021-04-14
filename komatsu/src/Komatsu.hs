@@ -1,3 +1,5 @@
+{-# LANGUAGE FlexibleInstances #-}
+{-# OPTIONS_GHC -fno-warn-missing-methods #-}
 ----------------------------------------------------------------------
 -- |
 --
@@ -402,7 +404,7 @@ fibs1 = map fib [0..]
 ----------------------------------------------------------------------
 
 fibs2 :: [Integer]
-fibs2 = undefined
+fibs2 = 0 : 1 : zipWith (+) fibs2 (tail fibs2)
 
 ----------------------------------------------------------------------
 -- Exercise 13
@@ -412,13 +414,13 @@ fibs2 = undefined
 -- https://www.cis.upenn.edu/~cis194/spring13/hw/06-laziness.pdf
 ----------------------------------------------------------------------
 
-data Stream a
+data Stream a = Cons a (Stream a)
 
 instance Show a => Show (Stream a) where
-  show = undefined
+  show = show . take 20 . streamToList
 
 streamToList :: Stream a -> [a]
-streamToList = undefined
+streamToList (Cons x y) = x : streamToList y
 
 ----------------------------------------------------------------------
 -- Exercise 14
@@ -433,13 +435,13 @@ streamToList = undefined
 ----------------------------------------------------------------------
 
 streamRepeat :: a -> Stream a
-streamRepeat = undefined
+streamRepeat x = Cons x (streamRepeat x)
 
 streamMap :: (a -> b) -> Stream a -> Stream b
-streamMap = undefined
+streamMap f (Cons x xs) = Cons (f x) (streamMap f xs)
 
 streamFromSeed :: (a -> a) -> a -> Stream a
-streamFromSeed = undefined
+streamFromSeed f x = Cons x (streamFromSeed f (f x))
 
 ----------------------------------------------------------------------
 -- Exercise 15
@@ -454,10 +456,16 @@ streamFromSeed = undefined
 ----------------------------------------------------------------------
 
 nats :: Stream Integer
-nats = undefined
+nats = streamFromSeed (+1) 0
+
+----------
+
+interleaveStreams :: Stream a -> Stream a -> Stream a
+interleaveStreams (Cons x xs) ys = Cons x (interleaveStreams ys xs)
 
 ruler :: Stream Integer
-ruler = undefined
+ruler = ruler' 0
+  where ruler' x = interleaveStreams (streamRepeat x) (ruler' (x+1))
 
 ----------------------------------------------------------------------
 -- Exercise 16 (Optional)
@@ -468,7 +476,20 @@ ruler = undefined
 ----------------------------------------------------------------------
 
 x :: Stream Integer
-x = undefined
+x = Cons 0 (Cons 1 (streamRepeat 0))
+
+instance Num (Stream Integer) where
+    fromInteger n = Cons n (streamRepeat 0)
+    negate (Cons y ys) = Cons (-y) (negate ys)
+    (+) (Cons a as) (Cons b bs) = Cons (a+b) (as + bs)
+    (*) (Cons a as) b'@(Cons b bs) = Cons (a*b) (streamMap (*a) bs + (as*b'))
+
+instance Fractional (Stream Integer) where
+    (/) (Cons a as) (Cons b bs) = q
+        where q = Cons (a `div` b) (streamMap (`div` b) (as - q * bs))
+
+fibs3 :: Stream Integer
+fibs3 = x / (1 - x - x * x)
 
 ----------------------------------------------------------------------
 -- Exercise 17 (Optional)
@@ -478,5 +499,16 @@ x = undefined
 -- https://www.cis.upenn.edu/~cis194/spring13/hw/06-laziness.pdf
 ----------------------------------------------------------------------
 
-fib4 :: Integer -> Integer
-fib4 = undefined
+data Matrix = Matrix Integer Integer Integer Integer deriving Show
+
+instance Num Matrix where
+  (*) (Matrix x11 x12 x21 x22) (Matrix y11 y12 y21 y22) =
+      (Matrix (x11*y11+x12*y21) (x11*y12+x12*y22)
+              (x21*y11+x22*y21) (x21*y12+x22*y22))
+
+fibs4 :: Integer -> Integer
+fibs4 0 = 0
+fibs4 1 = 1
+fibs4 n = g ( f ^ (n-1) )
+  where f = Matrix 1 1 1 0
+        g (Matrix x11 _ _ _) = x11
